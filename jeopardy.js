@@ -17,7 +17,11 @@
 //    },
 //    ...
 //  ]
-
+class JeopardyGame {
+    constructor(element, option = {}) {
+        this.useCategoryIds = [1892, 4483, 88, 218]
+    }
+}
 let categories = [];
 
 
@@ -26,7 +30,9 @@ let categories = [];
  * Returns array of category ids
  */
 
-function getCategoryIds() {
+async function getCategoryIds(entry) {
+    const res = await axios.get(`http://jservice.io/api/clues, `)
+    console.log(res);
 }
 
 /** Return object with data about a category:
@@ -96,3 +102,16 @@ async function setupAndStart() {
 /** On page load, add event handler for clicking clues */
 
 // TODO
+
+
+//https://stackoverflow.com/quesitons/6274339/how-can-i-shuffle-an-array
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
