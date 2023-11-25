@@ -18,11 +18,34 @@
 //    ...
 //  ]
 class JeopardyGame {
-    constructor(element, option = {}) {
-        this.useCategoryIds = [1892, 4483, 88, 218]
+    constructor(element, options = {}) {
+        this.useCategoryIds = options.useCategoryIds || [1892, 4483, 88, 218, 400];
+
+        //Database
+        this.categories = [];
+        this.clue = {};
+
+        //State
+        this.currentClue = null;
+
+    }
+
+    startGame() {
+        $('body').prepend(`<div class = "board">` + `</div>`)
+        $('.board').append(`<div class = "row">` + `</div>` + `<div class = "row">` + `</div>` + `<div class = "row">`
+            + `</div>` + `<div class = "row">` + `</div>` + `<div class = "row">` + `</div>`)
+        
+
+
     }
 }
-let categories = [];
+
+const game = new JeopardyGame(document.querySelector(".game"), {
+
+});
+
+
+
 
 
 /** Get NUM_CATEGORIES random category from API.
@@ -31,7 +54,7 @@ let categories = [];
  */
 
 async function getCategoryIds(entry) {
-    const res = await axios.get(`http://jservice.io/api/clues, `)
+    const res = await axios.get(`http://jservice.io/api/random`)
     console.log(res);
 }
 
@@ -71,7 +94,9 @@ async function fillTable() {
 
 function handleClick(evt) {
 }
-
+$('.will_blow_up').on('click', function () {
+    $('.PEW').remove()
+})
 /** Wipe the current Jeopardy board, show the loading spinner,
  * and update the button used to fetch data.
  */
