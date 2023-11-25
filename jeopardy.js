@@ -22,7 +22,7 @@ class JeopardyGame {
         this.useCategoryIds = options.useCategoryIds || [1892, 4483, 88, 218, 400];
 
         //Database
-        this.categories = [];
+        this.categories = [1892, 4483, 88, 218, 400];
         this.clue = {};
 
         //State
@@ -32,17 +32,18 @@ class JeopardyGame {
 
     startGame() {
         $('body').prepend(`<div class = "board">` + `</div>`)
-        $('.board').append(`<div class = "row">` + `</div>` + `<div class = "row">` + `</div>` + `<div class = "row">`
-            + `</div>` + `<div class = "row">` + `</div>` + `<div class = "row">` + `</div>`)
-        
+        $('.board').append(`<div class = "row ${this.categories[0]}">` + `</div>` + `<div class = "row ${this.categories[1]}">` + `</div>` + `<div class = "row ${this.categories[2]}">`
+            + `</div>` + `<div class = "row ${this.categories[3]}">` + `</div>` + `<div class = "row ${this.categories[4]}">` + `</div>`)
+        $('.row').append('<ul>' + '<li class = "question">' + '</li>' + '<li class = "question">' + '</li>' + '<li class = "question">' + '</li>'
+        + '<li class = "question">' + '</li>' + '<li class = "question">' + '</li>' + '<li class = "question">' + '</li>' + '</ul>')
+        this.getCategoryIds();
 
 
     }
 }
 
-const game = new JeopardyGame(document.querySelector(".game"), {
-
-});
+const game = new JeopardyGame(document.querySelector(".game"), {});
+game.startGame();
 
 
 
