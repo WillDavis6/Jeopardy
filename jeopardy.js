@@ -53,7 +53,13 @@ class JeopardyGame {
 }
 
 const game = new JeopardyGame(document.querySelector(".game"), {});
-game.startGame();
+
+$('.button').on('click', function () {
+    $('body').empty('body');
+    $('body').prepend('<button class="button">it kajiga worked!</button>')
+    game.startGame();
+})
+
 
 
 
