@@ -31,11 +31,21 @@ class JeopardyGame {
     }
 
     startGame() {
-        $('body').prepend(`<div class = "board">` + `</div>`)
-        $('.board').append(`<div class = "row ${this.categories[0]}">` + `</div>` + `<div class = "row ${this.categories[1]}">` + `</div>` + `<div class = "row ${this.categories[2]}">`
-            + `</div>` + `<div class = "row ${this.categories[3]}">` + `</div>` + `<div class = "row ${this.categories[4]}">` + `</div>`)
-        $('.row').append('<ul>' + '<li class = "question">' + '</li>' + '<li class = "question">' + '</li>' + '<li class = "question">' + '</li>'
-        + '<li class = "question">' + '</li>' + '<li class = "question">' + '</li>' + '<li class = "question">' + '</li>' + '</ul>')
+        $('body').prepend(`<table class = "board">` + `</table>`)
+        $('.board').append(`<thead>` + `<tr>` + `<th class = "row ">` + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">`
+            + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">` + `</th>` + `</tr>` + `</thead>`)
+        $('.board').append(`<tbody>` + `<tr>` + `<td id ="0-0">` + `</td>` + `<td id ="0-1">` + `</td>`
+            + `<td id ="0-2">` + `</td>` + `<td id ="0-3">` + `</td>` + `<td id ="0-4">` + `</td>` + `</tr>`
+            + `<tr>` + `<td id ="1-0">` + `</td>` + `<td id ="1-1">` + `</td>`
+            + `<td id ="1-2">` + `</td>` + `<td id ="1-3">` + `</td>` + `<td id ="1-4">` + `</td>` + `</tr>`
+            + `<tr>` + `<td id ="2-0">` + `</td>` + `<td id ="2-1">` + `</td>`
+            + `<td id ="2-2">` + `</td>` + `<td id ="2-3">` + `</td>` + `<td id ="2-4">` + `</td>` + `</tr>`
+            + `<tr>` + `<td id ="3-0">` + `</td>` + `<td id ="3-1">` + `</td>`
+            + `<td id ="3-2">` + `</td>` + `<td id ="3-3">` + `</td>` + `<td id ="3-4">` + `</td>` + `</tr>`
+            + `<tr>` + `<td id ="4-0">` + `</td>` + `<td id ="4-1">` + `</td>`
+            + `<td id ="4-2">` + `</td>` + `<td id ="4-3">` + `</td>` + `<td id ="4-4">` + `</td>` + `</tr>`
+            + `<tr>` + `<td id ="5-0">` + `</td>` + `<td id ="5-1">` + `</td>`
+            + `<td id ="5-2">` + `</td>` + `<td id ="5-3">` + `</td>` + `<td id ="5-4">` + `</td>` + `</tr>`+ `</tbody>`)
         this.getCategoryIds();
 
 

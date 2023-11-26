@@ -5,3 +5,13 @@
   #8d2ab5
   #74119c
 */
+
+tr {
+  height: 100px;
+  background-color: aqua;
+}
+td {
+  width: 100px;
+  height: 100px;
+  background-color: blueviolet;
+}
