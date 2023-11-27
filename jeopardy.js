@@ -17,12 +17,15 @@
 //    },
 //    ...
 //  ]
+
+
+//https://www.youtube.com/watch?v=fYMBkayHmUo&t=384s
 class JeopardyGame {
-    constructor(element, options = {}) {
+    constructor(element, options = {randomA, randomB, randomC, randomD, randomE}) {
         this.useCategoryIds = options.useCategoryIds || [1892, 4483, 88, 218, 400];
 
         //Database
-        this.categories = [1892, 4483, 88, 218, 400];
+        this.categories = [randomA, randomB, randomC, randomD, randomE];
         this.clue = {};
 
         //State
@@ -46,7 +49,10 @@ class JeopardyGame {
             + `<td id ="4-2">` + `</td>` + `<td id ="4-3">` + `</td>` + `<td id ="4-4">` + `</td>` + `</tr>`
             + `<tr>` + `<td id ="5-0">` + `</td>` + `<td id ="5-1">` + `</td>`
             + `<td id ="5-2">` + `</td>` + `<td id ="5-3">` + `</td>` + `<td id ="5-4">` + `</td>` + `</tr>`+ `</tbody>`)
-        this.getCategoryIds();
+        
+        let random = Math.floor(Math.random() * 1000 + 1);
+        
+        this.getCategoryIds(random);
 
 
     }
@@ -56,7 +62,7 @@ const game = new JeopardyGame(document.querySelector(".game"), {});
 
 $('.button').on('click', function () {
     $('body').empty('body');
-    $('body').prepend('<button class="button">it kajiga worked!</button>')
+    $('body').prepend('<button class="button">restart again?</button>')
     game.startGame();
 })
 
@@ -70,9 +76,14 @@ $('.button').on('click', function () {
  * Returns array of category ids
  */
 
+//WILL HAVE TO ACCESS THE API IN TWO DIFFERENT WAYS 1.) THE CATEGORIES API 2.) THE CLUES API. THEN MATCH THEM IN THE 
+//HEADER AND BODY OF THE JEOPARDY GAME
+
 async function getCategoryIds(entry) {
-    const res = await axios.get(`http://jservice.io/api/random`)
+    const res = await axios.get(`http://jservice.io/api/categories${entry}`)
     console.log(res);
+
+    getCategory(res)
 }
 
 /** Return object with data about a category:
@@ -88,6 +99,11 @@ async function getCategoryIds(entry) {
  */
 
 function getCategory(catId) {
+
+    for (let line of catId.data) {
+        console.log(`the category is: ${line.title}. The number of clues are: ${line.clues_count}. And the category id is: ${line.id} `)
+    }
+
 }
 
 /** Fill the HTML table#jeopardy with the categories & cells for questions.
@@ -135,6 +151,8 @@ function hideLoadingView() {
  * */
 
 async function setupAndStart() {
+
+    handleClick(evt)
 }
 
 /** On click of start / restart button, set up game. */
