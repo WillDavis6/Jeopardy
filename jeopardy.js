@@ -80,8 +80,10 @@ $('.button').on('click', function () {
 //HEADER AND BODY OF THE JEOPARDY GAME
 
 async function getCategoryIds(entry) {
-    const res = await axios.get(`http://jservice.io/api/categories${entry}`)
+    const res = await axios.get(`http://jservice.io/api/categories`)
     console.log(res);
+    const res2 = await axios.get(`http://jservice.io/api/clues`)
+    console.log(res2);
 
     getCategory(res)
 }
