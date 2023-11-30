@@ -104,6 +104,7 @@ function getCategory(catId) {
     for (let line of catId.data) {
         console.log(`the category is: ${line.title}. The number of clues are: ${line.clues_count}. And the category id is: ${line.id} `)
     }
+    fillTable(line.data)
 
 }
 
@@ -115,39 +116,15 @@ function getCategory(catId) {
  *   (initally, just show a "?" where the question/answer would go.)
  */
 
-async function fillTable() {
+async function fillTable(fill) {
     const res2 = await axios.get(`http://jservice.io/api/clues`)
     console.log(res2);
-    $('#0-0').innerText(res2.data)
-    $('#0-1').innerText(res2.data)
-    $('#0-2').innerText(res2.data)
-    $('#0-3').innerText(res2.data)
-    $('#0-4').innerText(res2.data)
-    $('#1-0').innerText(res2.data)
-    $('#1-1').innerText(res2.data)
-    $('#1-2').innerText(res2.data)
-    $('#1-3').innerText(res2.data)
-    $('#1-4').innerText(res2.data)
-    $('#2-0').innerText(res2.data)
-    $('#2-1').innerText(res2.data)
-    $('#2-2').innerText(res2.data)
-    $('#2-3').innerText(res2.data)
-    $('#2-4').innerText(res2.data)
-    $('#3-0').innerText(res2.data)
-    $('#3-1').innerText(res2.data)
-    $('#3-2').innerText(res2.data)
-    $('#3-3').innerText(res2.data)
-    $('#3-4').innerText(res2.data)
-    $('#4-0').innerText(res2.data)
-    $('#4-1').innerText(res2.data)
-    $('#4-2').innerText(res2.data)
-    $('#4-3').innerText(res2.data)
-    $('#4-4').innerText(res2.data)
-    $('#5-0').innerText(res2.data)
-    $('#5-1').innerText(res2.data)
-    $('#5-2').innerText(res2.data)
-    $('#5-3').innerText(res2.data)
-    $('#5-4').innerText(res2.data)
+    $('#0-0').innerText(fill)
+    $('#0-1').innerText(fill)
+    $('#0-2').innerText(fill)
+    $('#0-3').innerText(fill)
+    $('#0-4').innerText(fill)
+    
 }
 
 /** Handle clicking on a clue: show the question or answer.
