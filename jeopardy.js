@@ -54,6 +54,14 @@ class JeopardyGame {
         
         this.getCategoryIds(random);
 
+        let clues = shuffle(res2.clues).splice(0, 5).forEach((clue, index) => {
+            let clueId = categoryIndex + "-" + index;
+            newCategory.clues.push(clueId);
+    
+            this.clues[clueId] = {
+                quesiton: clue.question,
+                answer: clue.answer
+            }
 
     }
 }
@@ -119,6 +127,8 @@ function getCategory(catId) {
 async function fillTable(fill) {
     const res2 = await axios.get(`http://jservice.io/api/clues`)
     console.log(res2);
+    
+    })
     $('#0-0').innerText(fill)
     $('#0-1').innerText(fill)
     $('#0-2').innerText(fill)
