@@ -54,7 +54,7 @@ class JeopardyGame {
         
         this.getCategoryIds(random);
 
-        let clues = shuffle(res2.clues).splice(0, 5).forEach((clue, index) => {
+        let clues = shuffle(category.clues).splice(0, 5).forEach((clue, index) => {
             let clueId = categoryIndex + "-" + index;
             newCategory.clues.push(clueId);
     
@@ -63,7 +63,10 @@ class JeopardyGame {
                 answer: clue.answer
             }
 
-    }
+        })
+
+        this.categories.push(newCategory)
+        console.log(this)
 }
 
 const game = new JeopardyGame(document.querySelector(".game"), {});
