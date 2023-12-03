@@ -21,11 +21,11 @@
 
 //https://www.youtube.com/watch?v=fYMBkayHmUo&t=384s
 class JeopardyGame {
-    constructor(element, options = { randomA, randomB, randomC, randomD, randomE }) {
+    constructor(element, options = {}) {
         this.useCategoryIds = options.useCategoryIds || [1892, 4483, 88, 218, 400];
 
         //Database
-        this.categories = [randomA, randomB, randomC, randomD, randomE];
+        this.categories = [];
         this.clue = {};
 
         //State
@@ -34,8 +34,10 @@ class JeopardyGame {
     }
 
     startGame() {
+        const cat1 = getCategoryIds();
+
         $('body').prepend(`<table class = "board">` + `</table>`)
-        $('.board').append(`<thead>` + `<tr>` + `<th class = "row ">` + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">`
+        $('.board').append(`<thead>` + `<tr>` + `<th class = "row ">` + `${cat1}` + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">`
             + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">` + `</th>` + `</tr>` + `</thead>`)
         $('.board').append(`<tbody>` + `<tr>` + `<td id ="0-0">` + `</td>` + `<td id ="0-1">` + `</td>`
             + `<td id ="0-2">` + `</td>` + `<td id ="0-3">` + `</td>` + `<td id ="0-4">` + `</td>` + `</tr>`
@@ -69,17 +71,17 @@ class JeopardyGame {
         console.log(this)
     }
 
-    const game = new JeopardyGame(document.querySelector(".game"), {});
-
-    $('.button').on('click', function() {
-        $('body').empty('body');
-        $('body').prepend('<button class="button">restart again?</button>')
-        game.startGame();
-    })
+    
 
 
 }
+const game = new JeopardyGame(document.querySelector(".game"), {});
 
+    $('.button').on('click', function() {
+        $('body').empty('body');
+        $('body').prepend('<button class="button">kaJiga tHis?</button>')
+        game.startGame();
+    })
 
 
 /** Get NUM_CATEGORIES random category from API.
@@ -97,9 +99,15 @@ async function getCategoryIds(entry) {
 
     for (let line of res.data) {
         console.log(`the category is: ${line.title}. The number of clues are: ${line.clues_count}. And the category id is: ${line.id} `)
+        let firstCategory = line.title;
+        return firstCategory;
     }
-    fillTable(line.data)
+
+   
+  
 }
+
+// fillTable(line.data)
 
 /** Return object with data about a category:
  *
@@ -131,7 +139,7 @@ async function fillTable(fill) {
     const res2 = await axios.get(`http://jservice.io/api/clues`)
     console.log(res2);
     
-    })
+    
     $('#0-0').innerText(fill)
     $('#0-1').innerText(fill)
     $('#0-2').innerText(fill)
