@@ -33,11 +33,29 @@ class JeopardyGame {
 
     }
 
+    fillCategoryArrWithIds() {
+     
+        for (let i = 0; i < 5; i++) {
+            let random = Math.floor(Math.random() * 2000 + 100);
+            console.log(random);
+            this.categories.push(random);
+        }
+        console.log(this.categories);
+        
+    }
+
+    buildClueObject() {
+        this.categories.forEach(function (catId) {
+            this.clue.clue = 
+        })
+    }
+
     startGame() {
-        const cat1 = getCategoryIds();
+
+        
 
         $('body').prepend(`<table class = "board">` + `</table>`)
-        $('.board').append(`<thead>` + `<tr>` + `<th class = "row ">` + `${cat1}` + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">`
+        $('.board').append(`<thead>` + `<tr>` + `<th class = "row ">` + `${this.categories[0]}` + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">`
             + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">` + `</th>` + `</tr>` + `</thead>`)
         $('.board').append(`<tbody>` + `<tr>` + `<td id ="0-0">` + `</td>` + `<td id ="0-1">` + `</td>`
             + `<td id ="0-2">` + `</td>` + `<td id ="0-3">` + `</td>` + `<td id ="0-4">` + `</td>` + `</tr>`
@@ -52,9 +70,9 @@ class JeopardyGame {
             + `<tr>` + `<td id ="5-0">` + `</td>` + `<td id ="5-1">` + `</td>`
             + `<td id ="5-2">` + `</td>` + `<td id ="5-3">` + `</td>` + `<td id ="5-4">` + `</td>` + `</tr>` + `</tbody>`)
         
-        let random = Math.floor(Math.random() * 1000 + 1);
+       
         
-        this.getCategoryIds(random);
+       
 
         let clues = shuffle(category.clues).splice(0, 5).forEach((clue, index) => {
             let clueId = categoryIndex + "-" + index;
@@ -79,7 +97,8 @@ const game = new JeopardyGame(document.querySelector(".game"), {});
 
     $('.button').on('click', function() {
         $('body').empty('body');
-        $('body').prepend('<button class="button">kaJiga tHis?</button>')
+        $('body').prepend('<button class="button">kaJiga tHis?</button>');
+        game.fillCategoryArrWithIds();
         game.startGame();
     })
 
@@ -92,13 +111,23 @@ const game = new JeopardyGame(document.querySelector(".game"), {});
 //WILL HAVE TO ACCESS THE API IN TWO DIFFERENT WAYS 1.) THE CATEGORIES API 2.) THE CLUES API. THEN MATCH THEM IN THE 
 //HEADER AND BODY OF THE JEOPARDY GAME
 
-async function getCategoryIds(entry) {
-    const res = await axios.get(`http://jservice.io/api/categories`)
-    console.log(res);
+async function getClues(entry) {
+    const res = await axios.get(`http://jservice.io/api/category`, {
+        params: {
+            id: entry
+        }
+    })
+    return res;
    
 
-    for (let line of res.data) {
-        console.log(`the category is: ${line.title}. The number of clues are: ${line.clues_count}. And the category id is: ${line.id} `)
+    for (let line of res.data.clues) {
+        console.log(`the category is: ${res.data.title}. The number of clues are: ${res.data.clues_count}. Here are 5 clues and their answers:
+         Clue 1: ${res.data.clues[0].question} Answer: ${res.data.clues[0].answer} 
+         Clue 2: ${res.data.clues[1].question} Answer: ${res.data.clues[1].answer}
+         Clue 3: ${res.data.clues[2].question} Answer: ${res.data.clues[2].answer}
+         Clue 4: ${res.data.clues[3].question} Answer: ${res.data.clues[3].answer}
+         Clue 5: ${res.data.clues[4].question} Answer: ${res.data.clues[4].answer}
+         `)
         let firstCategory = line.title;
         return firstCategory;
     }
@@ -107,7 +136,9 @@ async function getCategoryIds(entry) {
   
 }
 
-// fillTable(line.data)
+fillTable(line.data) {
+
+}
 
 /** Return object with data about a category:
  *
@@ -206,3 +237,4 @@ function shuffle(a) {
     }
     return a;
 }
+
