@@ -56,15 +56,12 @@ class JeopardyGame {
         })
     }
 
-    addEventListener() {
-        let all = document.querySelectorAll("td");
-        all.addEventListener('click', handleClick)
-    }
+    // addEventListener() {
+    //     let all = document.querySelectorAll("td");
+    //     all.addEventListener('click', handleClick)
+    // }
 
     startGame() {
-
-        
-
         $('body').prepend(`<table class = "board">` + `</table>`)
         $('.board').append(`<thead>` + `<tr>` + `<th class = "row 0">` + `</th>` + `<th class = "row 1">` + `</th>` + `<th class = "row 2">`
             + `</th>` + `<th class = "row 3">` + `</th>` + `<th class = "row 4">` + `</th>` + `</tr>` + `</thead>`)
@@ -80,11 +77,6 @@ class JeopardyGame {
             + `<td id ="4-2">` + `</td>` + `<td id ="4-3">` + `</td>` + `<td id ="4-4">` + `</td>` + `</tr>`
             + `<tr>` + `<td id ="5-0">` + `</td>` + `<td id ="5-1">` + `</td>`
             + `<td id ="5-2">` + `</td>` + `<td id ="5-3">` + `</td>` + `<td id ="5-4">` + `</td>` + `</tr>` + `</tbody>`)
-        
-       
-        
-       
-
         // let clues = shuffle(category.clues).splice(0, 5).forEach((clue, index) => {
         //     let clueId = categoryIndex + "-" + index;
         //     newCategory.clues.push(clueId);
@@ -100,6 +92,14 @@ class JeopardyGame {
         // console.log(this)
     }
 
+
+addAllEventListeners() {
+
+    const work = document.querySelectorAll(".game")
+    work.addEventListener('click', handleClick);
+
+
+}
     
 
 
@@ -112,7 +112,7 @@ $('.button').on('click', function () {
     game.fillCategoryArrWithIds();
     game.insertCategoriesIntoHtml();
     game.startGame();
-    game.addEventListener();
+    game.addAllEventListeners();
     // fillCategoryArrWithIds();
     // insertCategoriesIntoHtml();
 
@@ -192,11 +192,7 @@ async function getClues(entry, index) {
  *   ]
  */
 
-function getCategory(catId) {
 
-    
-
-}
 
 /** Fill the HTML table#jeopardy with the categories & cells for questions.
  *
