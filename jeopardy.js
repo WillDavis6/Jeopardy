@@ -34,19 +34,22 @@ class JeopardyGame {
     }
 
     fillCategoryArrWithIds() {
-     
         for (let i = 0; i < 5; i++) {
             let random = Math.floor(Math.random() * 2000 + 100);
-            console.log(random);
             this.categories.push(random);
+
         }
-        console.log(this.categories);
-        
     }
+
+    // insertCategoriesIntoHtml() {
+    //     this.categories.forEach(function (id) {
+    //         console.log(getClues(id))
+    //     })
+    // }
 
     buildClueObject() {
         this.categories.forEach(function (catId) {
-            this.clue.clue = 
+            this.clue.clue  
         })
     }
 
@@ -55,8 +58,8 @@ class JeopardyGame {
         
 
         $('body').prepend(`<table class = "board">` + `</table>`)
-        $('.board').append(`<thead>` + `<tr>` + `<th class = "row ">` + `${this.categories[0]}` + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">`
-            + `</th>` + `<th class = "row ">` + `</th>` + `<th class = "row ">` + `</th>` + `</tr>` + `</thead>`)
+        $('.board').append(`<thead>` + `<tr>` + `<th class = "row 0">` + `</th>` + `<th class = "row 1">` + `</th>` + `<th class = "row 2">`
+            + `</th>` + `<th class = "row 3">` + `</th>` + `<th class = "row 4">` + `</th>` + `</tr>` + `</thead>`)
         $('.board').append(`<tbody>` + `<tr>` + `<td id ="0-0">` + `</td>` + `<td id ="0-1">` + `</td>`
             + `<td id ="0-2">` + `</td>` + `<td id ="0-3">` + `</td>` + `<td id ="0-4">` + `</td>` + `</tr>`
             + `<tr>` + `<td id ="1-0">` + `</td>` + `<td id ="1-1">` + `</td>`
@@ -74,19 +77,19 @@ class JeopardyGame {
         
        
 
-        let clues = shuffle(category.clues).splice(0, 5).forEach((clue, index) => {
-            let clueId = categoryIndex + "-" + index;
-            newCategory.clues.push(clueId);
+        // let clues = shuffle(category.clues).splice(0, 5).forEach((clue, index) => {
+        //     let clueId = categoryIndex + "-" + index;
+        //     newCategory.clues.push(clueId);
     
-            this.clues[clueId] = {
-                quesiton: clue.question,
-                answer: clue.answer
-            }
+        //     this.clues[clueId] = {
+        //         quesiton: clue.question,
+        //         answer: clue.answer
+        //     }
 
-        })
+        // })
 
-        this.categories.push(newCategory)
-        console.log(this)
+        // this.categories.push(newCategory)
+        // console.log(this)
     }
 
     
@@ -95,12 +98,20 @@ class JeopardyGame {
 }
 const game = new JeopardyGame(document.querySelector(".game"), {});
 
-    $('.button').on('click', function() {
-        $('body').empty('body');
-        $('body').prepend('<button class="button">kaJiga tHis?</button>');
-        game.fillCategoryArrWithIds();
-        game.startGame();
-    })
+const categories = []; 
+let clues = {};
+
+$('.button').on('click', function () {
+    $('body').empty('body');
+    $('body').prepend('<button class="button">kaJiga tHis?</button>');
+    // game.fillCategoryArrWithIds();
+    // game.insertCategoriesIntoHtml();
+    game.startGame();
+    fillCategoryArrWithIds();
+    insertCategoriesIntoHtml();
+
+
+});
 
 
 /** Get NUM_CATEGORIES random category from API.
@@ -111,34 +122,92 @@ const game = new JeopardyGame(document.querySelector(".game"), {});
 //WILL HAVE TO ACCESS THE API IN TWO DIFFERENT WAYS 1.) THE CATEGORIES API 2.) THE CLUES API. THEN MATCH THEM IN THE 
 //HEADER AND BODY OF THE JEOPARDY GAME
 
-async function getClues(entry) {
+
+
+
+function fillCategoryArrWithIds() {
+   
+    for (let i = 0; i < 5; i++) {
+        let random = Math.floor(Math.random() * 2000 + 100);
+
+        categories.push(random);
+    }
+   
+}
+
+function insertCategoriesIntoHtml(categories) {
+
+    categories.forEach(function (id) {
+        let count = categories.indexOf(id);
+        console.log(count);
+        getClues(id, count);
+     
+    })
+}
+
+// buildClueObject() {
+//     this.categories.forEach(function (catId) {
+//         this.clue.clue  
+//     })
+// }
+
+async function getClues(entry, index) {
+    
     const res = await axios.get(`http://jservice.io/api/category`, {
         params: {
             id: entry
         }
     })
-    return res;
+    console.log(res.data.title, index)
+    $(`.row`).text(res.data.title);
+    // $('#0-0')
+    // $('#0-1')
+    // $('#0-2')
+    // $('#0-3')
+    // $('#0-4')
+    // $('#1-')
+    // $('#1-0')
+    // $('#1-1')
+    // $('#1-2')
+    // $('#1-3')
+    // $('#2-01')
+    // $('#2-1')
+    // $('#2-2')
+    // $('#2-3')
+    // $('#2-4')
+    // $('#3-0')
+    // $('#3-1')
+    // $('#3-2')
+    // $('#3-3')
+    // $('#3-4')
+    // $('#4-0')
+    // $('#4-1')
+    // $('#4-2')
+    // $('#4-3')
+    // $('#4-4')
+    
+    // $('.row').text(res.data.title);
    
 
-    for (let line of res.data.clues) {
-        console.log(`the category is: ${res.data.title}. The number of clues are: ${res.data.clues_count}. Here are 5 clues and their answers:
-         Clue 1: ${res.data.clues[0].question} Answer: ${res.data.clues[0].answer} 
-         Clue 2: ${res.data.clues[1].question} Answer: ${res.data.clues[1].answer}
-         Clue 3: ${res.data.clues[2].question} Answer: ${res.data.clues[2].answer}
-         Clue 4: ${res.data.clues[3].question} Answer: ${res.data.clues[3].answer}
-         Clue 5: ${res.data.clues[4].question} Answer: ${res.data.clues[4].answer}
-         `)
-        let firstCategory = line.title;
-        return firstCategory;
-    }
+    // for (let line of res.data.clues) {
+    //     console.log(`the category is: ${res.data.title}. The number of clues are: ${res.data.clues_count}. Here are 5 clues and their answers:
+    //      Clue 1: ${res.data.clues[0].question} Answer: ${res.data.clues[0].answer} 
+    //      Clue 2: ${res.data.clues[1].question} Answer: ${res.data.clues[1].answer}
+    //      Clue 3: ${res.data.clues[2].question} Answer: ${res.data.clues[2].answer}
+    //      Clue 4: ${res.data.clues[3].question} Answer: ${res.data.clues[3].answer}
+    //      Clue 5: ${res.data.clues[4].question} Answer: ${res.data.clues[4].answer}
+    //      `)
+    //     let firstCategory = line.title;
+    //     return firstCategory;
+    // }
 
    
   
 }
 
-fillTable(line.data) {
+// fillTable(line.data) {
 
-}
+// }
 
 /** Return object with data about a category:
  *
@@ -166,18 +235,18 @@ function getCategory(catId) {
  *   (initally, just show a "?" where the question/answer would go.)
  */
 
-async function fillTable(fill) {
-    const res2 = await axios.get(`http://jservice.io/api/clues`)
-    console.log(res2);
+// async function fillTable(fill) {
+//     const res2 = await axios.get(`http://jservice.io/api/clues`)
+//     console.log(res2);
     
     
-    $('#0-0').innerText(fill)
-    $('#0-1').innerText(fill)
-    $('#0-2').innerText(fill)
-    $('#0-3').innerText(fill)
-    $('#0-4').innerText(fill)
+//     $('#0-0').innerText(fill)
+//     $('#0-1').innerText(fill)
+//     $('#0-2').innerText(fill)
+//     $('#0-3').innerText(fill)
+//     $('#0-4').innerText(fill)
     
-}
+// }
 
 /** Handle clicking on a clue: show the question or answer.
  *
@@ -227,14 +296,20 @@ async function setupAndStart() {
 
 
 //https://stackoverflow.com/quesitons/6274339/how-can-i-shuffle-an-array
-function shuffle(a) {
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-    return a;
-}
+// function shuffle(a) {
+//     var j, x, i;
+//     for (i = a.length - 1; i > 0; i--) {
+//         j = Math.floor(Math.random() * (i + 1));
+//         x = a[i];
+//         a[i] = a[j];
+//         a[j] = x;
+//     }
+//     return a;
+// }
 
+function insertCategoriesIntoHtml() {
+    let categories = [1888, 2000, 750, 674, 545]
+    categories.forEach(function (id) {
+        console.log(getClues(id))
+    })
+}
