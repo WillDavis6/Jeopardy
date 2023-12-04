@@ -22,24 +22,27 @@
 //https://www.youtube.com/watch?v=fYMBkayHmUo&t=384s
 class JeopardyGame {
     constructor(element, options = {}) {
-        this.useCategoryIds = options.useCategoryIds || [1892, 4483, 88, 218, 400];
-
-        //Database
+  
         this.categories = [];
         this.clue = {};
-
-        //State
-        this.currentClue = null;
-
     }
 
     fillCategoryArrWithIds() {
+   
         for (let i = 0; i < 5; i++) {
-            let random = Math.floor(Math.random() * 2000 + 100);
+            let random = Math.floor(Math.random() * 2000 + 1);
+    
             this.categories.push(random);
-
         }
+       
     }
+    
+    insertCategoriesIntoHtml() {
+            this.categories.forEach(function (id, index) {
+                getClues(id, index)
+            })
+    
+     }
 
     // insertCategoriesIntoHtml() {
     //     this.categories.forEach(function (id) {
@@ -51,6 +54,11 @@ class JeopardyGame {
         this.categories.forEach(function (catId) {
             this.clue.clue  
         })
+    }
+
+    addEventListener() {
+        let all = document.querySelectorAll("td");
+        all.addEventListener('click', handleClick)
     }
 
     startGame() {
@@ -98,17 +106,15 @@ class JeopardyGame {
 }
 const game = new JeopardyGame(document.querySelector(".game"), {});
 
-const categories = []; 
-let clues = {};
-
 $('.button').on('click', function () {
     $('body').empty('body');
     $('body').prepend('<button class="button">kaJiga tHis?</button>');
-    // game.fillCategoryArrWithIds();
-    // game.insertCategoriesIntoHtml();
+    game.fillCategoryArrWithIds();
+    game.insertCategoriesIntoHtml();
+    game.addEventListener();
     game.startGame();
-    fillCategoryArrWithIds();
-    insertCategoriesIntoHtml();
+    // fillCategoryArrWithIds();
+    // insertCategoriesIntoHtml();
 
 
 });
@@ -125,25 +131,8 @@ $('.button').on('click', function () {
 
 
 
-function fillCategoryArrWithIds() {
-   
-    for (let i = 0; i < 5; i++) {
-        let random = Math.floor(Math.random() * 2000 + 100);
 
-        categories.push(random);
-    }
-   
-}
 
-function insertCategoriesIntoHtml(categories) {
-
-    categories.forEach(function (id) {
-        let count = categories.indexOf(id);
-        console.log(count);
-        getClues(id, count);
-     
-    })
-}
 
 // buildClueObject() {
 //     this.categories.forEach(function (catId) {
@@ -152,39 +141,21 @@ function insertCategoriesIntoHtml(categories) {
 // }
 
 async function getClues(entry, index) {
-    
+    console.log(entry);
     const res = await axios.get(`http://jservice.io/api/category`, {
         params: {
             id: entry
         }
     })
-    console.log(res.data.title, index)
-    $(`.row`).text(res.data.title);
-    // $('#0-0')
-    // $('#0-1')
-    // $('#0-2')
-    // $('#0-3')
-    // $('#0-4')
-    // $('#1-')
-    // $('#1-0')
-    // $('#1-1')
-    // $('#1-2')
-    // $('#1-3')
-    // $('#2-01')
-    // $('#2-1')
-    // $('#2-2')
-    // $('#2-3')
-    // $('#2-4')
-    // $('#3-0')
-    // $('#3-1')
-    // $('#3-2')
-    // $('#3-3')
-    // $('#3-4')
-    // $('#4-0')
-    // $('#4-1')
-    // $('#4-2')
-    // $('#4-3')
-    // $('#4-4')
+    let fill = `${index}`;
+    $(`.${fill}`).text(res.data.title);
+    $(`#0-${fill}`).addClass(`${res.data.clues[0].answer}`).text(`${res.data.clues[0].question}`);
+    $(`#1-${fill}`).addClass(`${res.data.clues[1].answer}`).text(`${res.data.clues[1].question}`);
+    $(`#2-${fill}`).addClass(`${res.data.clues[2].answer}`).text(`${res.data.clues[2].question}`);
+    $(`#3-${fill}`).addClass(`${res.data.clues[3].answer}`).text(`${res.data.clues[3].question}`);
+    $(`#4-${fill}`).addClass(`${res.data.clues[4].answer}`).text(`${res.data.clues[4].question}`);
+    $(`#5-${fill}`).addClass(`${res.data.clues[5].answer}`).text(`${res.data.clues[5].question}`)
+   
     
     // $('.row').text(res.data.title);
    
@@ -307,9 +278,9 @@ async function setupAndStart() {
 //     return a;
 // }
 
-function insertCategoriesIntoHtml() {
-    let categories = [1888, 2000, 750, 674, 545]
-    categories.forEach(function (id) {
-        console.log(getClues(id))
-    })
-}
+// function insertCategoriesIntoHtml() {
+//     let categories = [1888, 2000, 750, 674, 545]
+//     categories.forEach(function (id) {
+//         console.log(getClues(id))
+//     })
+// }
