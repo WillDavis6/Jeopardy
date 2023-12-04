@@ -111,8 +111,8 @@ $('.button').on('click', function () {
     $('body').prepend('<button class="button">kaJiga tHis?</button>');
     game.fillCategoryArrWithIds();
     game.insertCategoriesIntoHtml();
-    game.addEventListener();
     game.startGame();
+    game.addEventListener();
     // fillCategoryArrWithIds();
     // insertCategoriesIntoHtml();
 
